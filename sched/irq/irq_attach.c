@@ -73,6 +73,7 @@
  * Description:
  *   Configure the IRQ subsystem so that IRQ number 'irq' is dispatched to
  *   'isr'
+ *   setup interrupt service for IRQ
  *
  ****************************************************************************/
 

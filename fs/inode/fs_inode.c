@@ -100,7 +100,7 @@ FAR struct inode *g_root_inode = NULL;
 static int _inode_compare(FAR const char *fname,
                           FAR struct inode *node)
 {
-  char *nname = node->i_name;
+  char *nname = node->i_name; // get node's file path
 
   if (!nname)
     {

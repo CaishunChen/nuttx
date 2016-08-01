@@ -777,7 +777,7 @@ void sem_initholders(void)
   /* Put all of the pre-allocated holder structures into the free list */
 
   g_freeholders = g_holderalloc;
-  for (i = 0; i < (CONFIG_SEM_PREALLOCHOLDERS-1); i++)
+  for (i = 0; i < (CONFIG_SEM_PREALLOCHOLDERS-1); i++)  // init sem structure link list
     {
       g_holderalloc[i].flink = &g_holderalloc[i+1];
     }

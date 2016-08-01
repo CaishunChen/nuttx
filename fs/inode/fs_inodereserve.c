@@ -174,7 +174,7 @@ int inode_reserve(FAR const char *path, FAR struct inode **inode)
 
   /* Handle paths that are interpreted as the root directory */
 
-  if (path[0] == '\0' || path[0] != '/' || path[1] == '\0')
+  if (path[0] == '\0' || path[0] != '/' || path[1] == '\0')  // path must start from root --> '/'
     {
       return -EINVAL;
     }
