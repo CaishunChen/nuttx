@@ -75,7 +75,8 @@
  *   'isr'
  *
  ****************************************************************************/
-
+// irq is IRQ number, for example Reset interrupt's number is 1
+// isr is interrupe serivce handler function
 int irq_attach(int irq, xcpt_t isr)
 {
 #if NR_IRQS > 0
