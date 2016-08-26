@@ -431,8 +431,8 @@ void os_start(void)
 
       /* Assign the process ID(s) of ZERO to the idle task(s) */
 
-      hashndx                = PIDHASH(g_lastpid);
-      g_pidhash[hashndx].tcb = &g_idletcb[cpu].cmn;
+      hashndx                = PIDHASH(g_lastpid);	// force task's ID in the valid range
+      g_pidhash[hashndx].tcb = &g_idletcb[cpu].cmn; // TCB's common part
       g_pidhash[hashndx].pid = g_lastpid;
 
       /* Initialize a TCB for this thread of execution.  NOTE:  The default
@@ -512,8 +512,8 @@ void os_start(void)
 #else
       g_idleargv[cpu][0]  = (FAR char *)g_idlename;
 #endif /* CONFIG_TASK_NAME_SIZE */
-      g_idleargv[cpu][1]  = NULL;
-      g_idletcb[cpu].argv = &g_idleargv[cpu][0];
+      g_idleargv[cpu][1]  = NULL;					// no args
+      g_idletcb[cpu].argv = &g_idleargv[cpu][0];	// task's name + args
 
       /* Then add the idle task's TCB to the head of the corrent ready to
        * run list.
@@ -522,13 +522,13 @@ void os_start(void)
 #ifdef CONFIG_SMP
       tasklist = TLIST_HEAD(TSTATE_TASK_RUNNING, cpu);
 #else
-      tasklist = TLIST_HEAD(TSTATE_TASK_RUNNING);
+      tasklist = TLIST_HEAD(TSTATE_TASK_RUNNING);		// get g_readytorun list
 #endif
-      dq_addfirst((FAR dq_entry_t *)&g_idletcb[cpu], tasklist);
+      dq_addfirst((FAR dq_entry_t *)&g_idletcb[cpu], tasklist);  // add idle task's TCB into g_readytorun list
 
       /* Initialize the processor-specific portion of the TCB */
 
-      up_initial_state(&g_idletcb[cpu].cmn);
+      up_initial_state(&g_idletcb[cpu].cmn);	// init TCB's processor-specific registers part
     }
 
   /* Task lists are initialized */
@@ -600,7 +600,7 @@ void os_start(void)
   if (irq_initialize != NULL)
 #endif
     {
-      irq_initialize();
+      irq_initialize(); // Point all interrupt vectors to the unexpected interrupt
     }
 
   /* Initialize the watchdog facility (if included in the link) */

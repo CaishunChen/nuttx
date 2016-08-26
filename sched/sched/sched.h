@@ -62,7 +62,7 @@
  * OS functions (this is the only limitation in the number of
  * tasks built into the design).
  */
-
+// CONFIG_MAX_TASKS: this value nust be a power of two
 #define MAX_TASKS_MASK           (CONFIG_MAX_TASKS-1)
 #define PIDHASH(pid)             ((pid) & MAX_TASKS_MASK)
 
