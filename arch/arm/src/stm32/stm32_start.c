@@ -252,10 +252,10 @@ void __start(void)
 
   /* Configure the UART so that we can get debug output as soon as possible */
 
-  stm32_clockconfig();
-  stm32_fpuconfig();
-  stm32_lowsetup();
-  stm32_gpioinit();
+  stm32_clockconfig();   // set up clock, HSE
+  stm32_fpuconfig();     // FPU init
+  stm32_lowsetup();      // set up serial port for console output
+  stm32_gpioinit();      // remap gpio's alternative functions, accoring to .config
   showprogress('A');
 
   /* Clear .bss.  We'll do this inline (vs. calling memset) just to be
@@ -308,7 +308,7 @@ void __start(void)
 
   /* Initialize onboard resources */
 
-  stm32_boardinitialize();
+  stm32_boardinitialize();    // init board devices
   showprogress('F');
 
   /* Then start NuttX */

@@ -84,7 +84,7 @@ int register_driver(FAR const char *path, FAR const struct file_operations *fops
    */
 
   inode_semtake();
-  ret = inode_reserve(path, &node);
+  ret = inode_reserve(path, &node);   // create or reserve an (initialized) inode the pseudo file system
   if (ret >= 0)
     {
       /* We have it, now populate it with driver specific information.
